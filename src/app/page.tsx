@@ -30,7 +30,7 @@ export default function Portfolio() {
   const experiences = [
     {
       company: "Optum (UHG)",
-      logo: "/logos/optum.jpeg",
+      logo: "/logos/optum.jpg",
       role: "Sr. Front End Engineer",
       duration: "Nov 2024 — Present",
       color: "from-orange-500/20",
@@ -46,7 +46,7 @@ export default function Portfolio() {
     },
     {
       company: "Prime Therapeutics",
-      logo: "/logos/prime.jpeg",
+      logo: "/logos/prime.jpg",
       role: "Software Engineer",
       duration: "Jun 2023 — July 2024",
       color: "from-cyan-500/20",
@@ -149,7 +149,7 @@ export default function Portfolio() {
         {/* 3. NEW SKILLS COMPONENT (Hover Tiles) */}
         <section className="mb-40">
            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {['React', 'Next.js', 'Angular', 'TypeScript', 'Tailwind', 'Framer', 'Redux', 'Jest', 'Node.js', 'AWS', 'GCP', 'Git'].map((skill) => (
+              {['React JS', 'Next.js', 'Angular JS', 'TypeScript', 'JavaScript', 'Material UI', 'Tailwind', 'Framer', 'Redux', 'Jest', 'Node.js', 'GraphQL', 'SOAP', 'REST API', 'AWS', 'GCP', 'Git'].map((skill) => (
                 <motion.div 
                   key={skill}
                   whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.1)", borderColor: "rgba(59, 130, 246, 0.4)" }}
