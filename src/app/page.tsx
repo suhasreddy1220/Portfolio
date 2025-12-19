@@ -124,7 +124,7 @@ export default function Portfolio() {
         {/* HERO SECTION */}
         <motion.section {...fadeIn} className="mb-24 relative">
           <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
-            Full Stack <br /> 
+            Front End <br /> 
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
           </h1>
           
@@ -132,20 +132,32 @@ export default function Portfolio() {
           <div className="max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 backdrop-blur-sm">
             <h2 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-4">Professional Summary</h2>
             <p className="text-lg text-zinc-400 leading-relaxed font-light">
-              Results-driven Full Stack Engineer with extensive experience in architecting scalable microservices and interactive user interfaces for industry leaders like Optum and Walmart Labs. Expert in leveraging Java, Spring Boot, and modern JavaScript frameworks to optimize performance and deployment frequency in cloud-native environments.
+              Dynamic, results-driven Front-End Engineer with extensive experience in building responsive, scalable, and component-driven web applications. Proficient across modern frontend HTML, CSS, TypeScript & JavaScript with frameworks (React JS, Next.js, Angular JS) Strong background RESTful API design, cloud platforms, and full SDLC best practices. Known for delivering high-quality code, improving UI/UX performance, and collaborating effectively in fast-paced engineering teams.
             </p>
           </div>
         </motion.section>
 
-        {/* MARQUEE ANIMATION */}
-        <section className="mb-40 border-y border-white/5 py-10 overflow-hidden bg-white/[0.02]">
-          <div className="flex animate-marquee whitespace-nowrap">
-            {skills.concat(skills).map((skill, i) => (
-              <span key={i} className="text-4xl md:text-6xl font-black text-zinc-800/40 mx-10 uppercase italic tracking-tighter hover:text-blue-500/50 transition-colors">
-                {skill}
-              </span>
-            ))}
-          </div>
+        {/* INDIVIDUAL SKILL BOXES WITH HIGHLIGHT HOVER */}
+        <section id="skills" className="mb-40">
+          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Tech Stack</h2>
+           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {skills.map((skill) => (
+                <motion.div 
+                  key={skill}
+                  whileHover={{ 
+                    y: -5,
+                    backgroundColor: "rgba(59, 130, 246, 0.15)",
+                    borderColor: "rgba(59, 130, 246, 0.6)",
+                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)"
+                  }}
+                  className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
+                >
+                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white">
+                    {skill}
+                  </span>
+                </motion.div>
+              ))}
+           </div>
         </section>
 
         {/* REVERTED ANALYTICS DESCRIPTION */}
@@ -172,29 +184,6 @@ export default function Portfolio() {
               ))}
             </div>
           </div>
-        </section>
-
-        {/* INDIVIDUAL SKILL BOXES WITH HIGHLIGHT HOVER */}
-        <section id="skills" className="mb-40">
-          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Tech Stack</h2>
-           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {skills.map((skill) => (
-                <motion.div 
-                  key={skill}
-                  whileHover={{ 
-                    y: -5,
-                    backgroundColor: "rgba(59, 130, 246, 0.15)",
-                    borderColor: "rgba(59, 130, 246, 0.6)",
-                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)"
-                  }}
-                  className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
-                >
-                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white">
-                    {skill}
-                  </span>
-                </motion.div>
-              ))}
-           </div>
         </section>
 
         {/* EXPANDABLE CLIENTS SECTION */}
