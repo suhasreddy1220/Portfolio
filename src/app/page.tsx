@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import { 
   Terminal, Cpu, Globe, Briefcase, MapPin, Mail, Linkedin, 
-  Zap, PieChart, Activity, Layers, Code2, ChevronDown, ChevronUp 
+  Zap, PieChart, Activity, Layers, Code2, ChevronDown, ChevronUp, Calendar
 } from "lucide-react";
 
 const fadeIn = {
@@ -30,49 +30,67 @@ export default function Portfolio() {
 
   const clients = [
     {
-      company: "Optum (UHG)",
+      company: "Optum UHC",
       logo: "/logos/optum.jpeg",
-      role: "Sr. Front End Engineer",
+      role: "Senior Front end Engineer",
       duration: "Nov 2024 — Present",
       color: "from-orange-500/20",
       details: [
-        "Technical lead for front-end initiatives, defining scalable design patterns for React, Next.js, and TypeScript architectures.",
-        "Engineered high-performance UI components resulting in a 40% improvement in cross-device fluidity.",
-        "Architected a standardized design system across healthcare clouds, reducing UI technical debt by 25%."
+        "Developed a scalable Deployment Service with Docker and RESTful APIs, boosting maintainability by 85%.",
+        "Built end-to-end web applications using Angular 17 and Node JS, increasing website usage by 80%.",
+        "Enhanced CI/CD pipelines with Jenkins and AWS, cutting feature delivery time by 40%."
       ]
     },
     {
-      company: "Walmart",
+      company: "Walmart Labs",
       logo: "/logos/walmart.png",
       role: "Software Engineer",
       duration: "July 2024 — Sept 2024",
       color: "from-blue-600/20",
       details: [
-        "Developed enterprise-grade interfaces using React and modern JavaScript for internal analytics teams.",
-        "Achieved 85% code coverage for frontend modules by implementing unit and integration testing with Jest.",
-        "Optimized web application flows with custom CSS and Bootstrap, eliminating full-page reloads."
+        "Engineered secure Spring Boot RESTful microservices integrated with PostgreSQL.",
+        "Expanded code coverage to 85% through comprehensive unit and integration testing with Junit.",
+        "Implemented Kafka streaming applications for efficient customer screening using EKS."
       ]
     },
     {
       company: "Prime Therapeutics",
-      logo: "/logos/prime.jpeg",
+      logo: "/logos/prime.jpg",
       role: "Software Engineer",
       duration: "Jun 2023 — July 2024",
       color: "from-cyan-500/20",
       details: [
-        "Enhanced UI modularity using advanced design patterns, increasing component reusability by 50%.",
-        "Spearheaded mobile-first, responsive web designs ensuring 100% WCAG 2.1 accessibility compliance.",
-        "Optimized front-end asset loading, leading to a 25% improvement in Time-to-Interactive (TTI)."
+        "Constructed a custom ORM application using Spring Data JPA and Hibernate for automated testing.",
+        "Optimized data storage with MongoDB and SQL, improving retrieval speeds by 25%.",
+        "Strengthened API security with OAuth and JWT, reducing vulnerabilities by 95%."
+      ]
+    },
+    {
+      company: "Arrka Infosec PVT LTD",
+      logo: "/logos/arrka.jpg",
+      role: "Software Developer",
+      duration: "Jan 2020 — Nov 2021",
+      color: "from-cyan-500/20",
+      details: [
+        "Reactive UI Engineering: Designed and developed highly responsive user interfaces using Angular and JavaScript, implementing real-time data binding to ensure security dashboards updated dynamically without manual refreshes.",  
+        "Frontend Architecture: Engineered a library of reusable UI components—including complex data tables, modals, and secure form inputs—using HTML5 and CSS3 to maintain 100% design consistency across the platform.",
+        "Microservices Integration: Developed and maintained web applications using Java as a backend and implemented REST-based Microservices with Spring Boot, seamlessly connecting the frontend with robust MVC architecture.",
+        "Data Visualization & Performance: Performed database modeling and implemented performance metrics, integrating frontend views with complex SQL stored procedures and multi-table joins to visualize robust data operations.",
+        "Real-time Monitoring: Collaborated with team members to build SQL-based metrics for real-time monitoring and performance insights, surfacing system health directly to the user through the interface"
       ]
     }
   ];
 
-  const skills = ['React JS', 'Next.js', 'Angular JS', 'TypeScript', 'JavaScript', 'Material UI', 'Tailwind', 'Framer', 'Redux', 'Jest', 'Node.js', 'GraphQL', 'SOAP', 'REST API', 'AWS', 'GCP', 'Git'];
+  const skills = [
+    'Java', 'JavaScript', 'TypeScript', 'SQL', 'HTML5', 'CSS3', 
+    'Spring Boot', 'Angular 17', 'React JS', 'Node JS', 'Express JS', 
+    'Docker', 'Kubernetes', 'AWS', 'Jenkins', 'Kafka', 'Terraform', 'Git'
+  ];
 
   return (
     <div className="min-h-screen bg-[#0a0f14] text-zinc-100 selection:bg-blue-500/40 overflow-x-hidden font-sans">
       
-      {/* 1. PEACEFUL DYNAMIC BACKGROUND */}
+      {/* PEACEFUL DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#16202a_0%,#0a0f14_100%)]" />
         <motion.div 
@@ -98,15 +116,19 @@ export default function Portfolio() {
       <main className="max-w-6xl mx-auto px-6 pt-44 pb-20">
         
         {/* HERO SECTION */}
-        <motion.section {...fadeIn} className="mb-40 relative">
+        <motion.section {...fadeIn} className="mb-24 relative">
           <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
-            Senior <br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Front End</span> <br /> 
-            Engineer.
+            Full Stack <br /> 
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
           </h1>
-          <p className="text-xl md:text-2xl text-zinc-400 max-w-2xl font-light leading-relaxed">
-            Building high-performance digital experiences with precision and creative functionality.
-          </p>
+          
+          {/* PROFESSIONAL SUMMARY */}
+          <div className="max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 backdrop-blur-sm">
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-4">Professional Summary</h2>
+            <p className="text-lg text-zinc-400 leading-relaxed font-light">
+              Results-driven Full Stack Engineer with extensive experience in architecting scalable microservices and interactive user interfaces for industry leaders like Optum and Walmart Labs. Expert in leveraging Java, Spring Boot, and modern JavaScript frameworks to optimize performance and deployment frequency in cloud-native environments.
+            </p>
+          </div>
         </motion.section>
 
         {/* MARQUEE ANIMATION */}
@@ -120,7 +142,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* ANALYTICS SECTION */}
+        {/* REVERTED ANALYTICS DESCRIPTION */}
         <section className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
           <div className="h-[400px] bg-white/[0.02] border border-white/5 rounded-[3rem] p-6 backdrop-blur-3xl">
             <ResponsiveContainer width="100%" height="100%">
@@ -131,27 +153,37 @@ export default function Portfolio() {
               </RadarChart>
             </ResponsiveContainer>
           </div>
-          <div className="space-y-6">
-            <h2 className="text-4xl font-bold italic tracking-tight text-white">Technical Mastery.</h2>
-            <p className="text-zinc-500 text-lg">My engineering approach balances aesthetic precision with mathematical performance tuning.</p>
+          <div className="space-y-8">
+            <h3 className="text-4xl font-bold tracking-tight leading-tight">Measured Excellence in <span className="text-blue-500">Modern Web</span> Technologies.</h3>
+            <p className="text-zinc-500 text-lg">
+              Beyond writing code, I analyze performance bottlenecks and architectural scalability. My expertise is balanced across high-speed rendering, state logic, and design systems.
+            </p>
+            <div className="grid grid-cols-2 gap-4">
+              {['100% UI Focus', 'Cloud Native', 'Performance Tuning', 'Scalable Arch'].map((item) => (
+                <div key={item} className="flex items-center gap-2 text-xs font-bold text-zinc-300">
+                  <Zap size={14} className="text-blue-500" /> {item}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
-        {/* INSTANT REACTIVE SKILLS */}
+        {/* INDIVIDUAL SKILL BOXES WITH HIGHLIGHT HOVER */}
         <section id="skills" className="mb-40">
+          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Tech Stack</h2>
            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {skills.map((skill) => (
                 <motion.div 
                   key={skill}
                   whileHover={{ 
-                    scale: 1.05, 
-                    backgroundColor: "rgba(59, 130, 246, 0.2)",
-                    borderColor: "rgba(59, 130, 246, 0.5)",
-                    transition: { duration: 0.1 } // Instant reaction
+                    y: -5,
+                    backgroundColor: "rgba(59, 130, 246, 0.15)",
+                    borderColor: "rgba(59, 130, 246, 0.6)",
+                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)"
                   }}
-                  className="p-6 rounded-2xl border border-white/5 bg-zinc-900/20 text-center cursor-pointer group"
+                  className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
                 >
-                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-500 group-hover:text-white transition-colors">
+                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white">
                     {skill}
                   </span>
                 </motion.div>
@@ -196,7 +228,7 @@ export default function Portfolio() {
                       <div className="grid grid-cols-1 gap-4 border-t border-white/5 pt-8">
                         {client.details.map((detail, i) => (
                           <div key={i} className="flex gap-4 p-4 rounded-xl bg-black/20 border border-white/5">
-                            <Zap size={18} className="text-blue-500 shrink-0" />
+                            <Code2 size={18} className="text-blue-500 shrink-0" />
                             <p className="text-zinc-400 text-sm leading-relaxed">{detail}</p>
                           </div>
                         ))}
@@ -210,13 +242,13 @@ export default function Portfolio() {
         </section>
 
         {/* EDUCATION SECTION (BRANDED CARDS) */}
-        <section className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section id="edu" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
                <img src="/logos/unt.png" className="h-16 w-16 object-contain" alt="UNT" />
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Master of Science</p>
                   <h4 className="text-xl font-bold">University of North Texas</h4>
-                  <p className="text-zinc-500 text-xs italic">Advanced Data Analytics • GPA 3.875</p>
+                  <p className="text-zinc-500 text-xs italic">Advanced Data Analytics • Denton, TX</p>
                </div>
             </div>
             <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
@@ -224,29 +256,34 @@ export default function Portfolio() {
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Bachelor of Technology</p>
                   <h4 className="text-xl font-bold">NIIT University</h4>
-                  <p className="text-zinc-500 text-xs italic">Computer Science • GPA 6.58</p>
+                  <p className="text-zinc-500 text-xs italic">Computer Science & Engineering • Hyderabad, India</p>
                </div>
             </div>
         </section>
 
-        <footer className="pt-20 border-t border-white/5 flex justify-between items-center opacity-50 text-[10px] font-bold uppercase tracking-widest">
-           <p>© 2025 Dallas, Texas</p>
-           <div className="flex gap-4">
-              <a href="https://linkedin.com/in/rushikreddy" className="hover:text-blue-500">LinkedIn</a>
-              <a href="mailto:rushikreddy22@gmail.com" className="hover:text-blue-500">Email</a>
-           </div>
-        </footer>
-      </main>
-
-      <style jsx global>{`
-        @keyframes marquee {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-      `}</style>
-    </div>
-  );
-}
+        {/* CONTACT SECTION */}
+        <section className="mb-40">
+          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Get in Touch</h2>
+          <div className="flex flex-col items-center gap-6">
+            <motion.a 
+              href="mailto: rushikreddy22@gmail.com" 
+              whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.15)", borderColor: "rgba(59, 130, 246, 0.6)", boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)" }}
+              className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
+            >
+              <Mail size={24} className="text-blue-500" />
+              <span className="text-lg font-bold text-white mt-2">Email Me</span>
+            </motion.a>
+                        <motion.a 
+                          href="https://www.linkedin.com/in/rushik-reddy/" 
+                          whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.15)", borderColor: "rgba(59, 130, 246, 0.6)", boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)" }}
+                          className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
+                        >
+                          <Linkedin size={24} className="text-blue-500" />
+                          <span className="text-lg font-bold text-white mt-2">Connect on LinkedIn</span>
+                        </motion.a>
+                      </div>
+                    </section>
+                  </main>
+                </div>
+              );
+            }
