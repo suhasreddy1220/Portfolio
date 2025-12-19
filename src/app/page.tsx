@@ -5,14 +5,19 @@ import {
   Terminal, Cpu, Globe, Briefcase, MapPin, Mail, Linkedin 
 } from "lucide-react";
 
-export default function Portfolio() {
-  const fadeIn = {
-    initial: { opacity: 0, y: 30 },
-    whileInView: { opacity: 1, y: 0 },
-    viewport: { once: true },
-    transition: { duration: 0.8, ease: "easeOut" }
-  };
+// Using 'as const' ensures TypeScript treats the string "easeOut" 
+// as a literal type required by Framer Motion.
+const fadeIn = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true },
+  transition: { 
+    duration: 0.8, 
+    ease: "easeOut" 
+  }
+} as const;
 
+export default function Portfolio() {
   const experiences = [
     {
       company: "Optum, UnitedHealth Group",
@@ -42,9 +47,9 @@ export default function Portfolio() {
       location: "MN (Remote)",
       duration: "Jun 2023 — July 2024",
       highlights: [
-        "Enhanced UI modularity using advanced design patterns, resulting in a 50% increase in component reusability across pharmacy benefit portals[cite: 4].",
-        "Spearheaded the development of mobile-first, responsive web designs, ensuring 100% WCAG 2.1 accessibility compliance for diverse user groups[cite: 4].",
-        "Optimized front-end asset loading and image rendering strategies, leading to a 25% improvement in Time-to-Interactive (TTI)[cite: 4]."
+        "Enhanced UI modularity using advanced design patterns, resulting in a 50% increase in component reusability across pharmacy benefit portals.",
+        "Spearheaded the development of mobile-first, responsive web designs, ensuring 100% WCAG 2.1 accessibility compliance for diverse user groups[cite: 1].",
+        "Optimized front-end asset loading and image rendering strategies, leading to a 25% improvement in Time-to-Interactive (TTI)[cite: 1]."
       ]
     },
     {
@@ -54,7 +59,7 @@ export default function Portfolio() {
       duration: "Jan 2020 — Nov 2021",
       highlights: [
         "Designed and implemented reactive front-end interfaces using Angular and JavaScript, focusing on intuitive navigation and user-centric flows[cite: 4].",
-        "Reduced page load times by 1.5 seconds through sophisticated image rendering techniques and lazy loading implementation[cite: 1].",
+        "Reduced page load times by 1.5 seconds through sophisticated image rendering techniques and lazy loading implementation.",
         "Collaborated with UX teams to translate wireframes into pixel-perfect, interactive web applications while maintaining high performance metrics[cite: 1]."
       ]
     }
@@ -78,15 +83,15 @@ export default function Portfolio() {
         {/* Professional Summary */}
         <motion.section {...fadeIn} className="mb-32">
           <h1 className="text-6xl md:text-8xl font-black tracking-tighter mb-8 leading-[0.9]">
-            Rushik Reddy <span className="text-zinc-800 font-outline-2">Gangam</span>
+            Rushik Reddy <span className="text-zinc-800">Gangam</span>
           </h1>
           <div className="relative p-10 rounded-[2rem] bg-gradient-to-br from-zinc-900 to-black border border-white/10 overflow-hidden shadow-2xl">
             <div className="absolute top-0 right-0 p-8 opacity-5">
               <Terminal size={150} />
             </div>
             <p className="text-xl md:text-2xl text-zinc-400 leading-relaxed font-light relative z-10">
-              I am a <span className="text-white font-semibold">Senior Front End Architect</span> dedicated to building visually stunning and high-performance digital experiences. 
-              My expertise focuses on <span className="text-blue-500">component-driven architecture</span> and scalable UI ecosystems[cite: 1]. 
+              I am a <span className="text-white font-semibold">Senior Front End Architect</span> dedicated to building visually stunning and high-performance digital experiences[cite: 1]. 
+              My expertise focuses on <span className="text-blue-500">component-driven architecture</span> and scalable UI ecosystems. 
               From healthcare clouds to retail giants, I ensure every pixel serves a purpose and every interaction feels like magic.
             </p>
           </div>
@@ -121,7 +126,7 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* Technical Arsenal */}
+        {/* Technical Arsenal (Focusing on UI/Web Technologies) */}
         <section id="skills" className="mb-32">
           <h2 className="text-xs font-bold uppercase tracking-[0.5em] text-zinc-500 mb-12 flex items-center gap-4 text-center justify-center">
             Technical Arsenal
