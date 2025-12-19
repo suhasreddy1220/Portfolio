@@ -5,8 +5,8 @@ import {
   Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer 
 } from "recharts";
 import { 
-  Terminal, Cpu, Globe, Briefcase, MapPin, Mail, Linkedin, 
-  Zap, PieChart, Activity, Layers, Code2, ChevronDown, ChevronUp, Calendar
+   Mail, Linkedin, 
+  Zap, Code2, ChevronDown, ChevronUp
 } from "lucide-react";
 
 const fadeIn = {
@@ -36,9 +36,11 @@ export default function Portfolio() {
       duration: "Nov 2024 — Present",
       color: "from-orange-500/20",
       details: [
-        "Developed a scalable Deployment Service with Docker and RESTful APIs, boosting maintainability by 85%.",
-        "Built end-to-end web applications using Angular 17 and Node JS, increasing website usage by 80%.",
-        "Enhanced CI/CD pipelines with Jenkins and AWS, cutting feature delivery time by 40%."
+        "Served as technical lead for front-end initiatives, defining design patterns and best practices for React, Next.js and TypeScript based OCM application.",
+        "Built end-to-end web applications using React and Next.js with TypeScript, increasing website usage by 80%.",
+        "Implemented a robust state management solution using Redux Toolkit, enhancing application performance by 25%.",
+        "Collaborated with cross-functional teams to deliver high-quality software solutions, achieving a 95% customer satisfaction rate.",
+        "Writing test cases using Jest and Cypress using github copilot, ensuring a 98% test coverage, 95% bug-free deployment and saving development time.",
       ]
     },
     {
@@ -50,7 +52,10 @@ export default function Portfolio() {
       details: [
         "Engineered secure Spring Boot RESTful microservices integrated with PostgreSQL.",
         "Expanded code coverage to 85% through comprehensive unit and integration testing with Junit.",
-        "Implemented Kafka streaming applications for efficient customer screening using EKS."
+        "Implemented Kafka streaming applications for efficient customer screening using EKS.",
+        "Collaborated with DevOps team to automate deployment pipelines, reducing deployment time by 75%.",
+        "Conducted code reviews and pair programming sessions to maintain high coding standards and improve team productivity.",
+        "Used grafana and prometheus to monitor the health of the application and alert on any issues and splunk to debug and analyze logs."
       ]
     },
     {
@@ -60,9 +65,10 @@ export default function Portfolio() {
       duration: "Jun 2023 — July 2024",
       color: "from-cyan-500/20",
       details: [
-        "Constructed a custom ORM application using Spring Data JPA and Hibernate for automated testing.",
-        "Optimized data storage with MongoDB and SQL, improving retrieval speeds by 25%.",
-        "Strengthened API security with OAuth and JWT, reducing vulnerabilities by 95%."
+        "Led UI development efforts using React, Bootstrap to implement responsive and visually consistent frontend interfaces.",
+        "Engineered a component-driven React architecture that boosted code reusability by 50% and cut front-end development time by 25% across multiple projects.",
+        "Built component-based React architectures using Context API for scalable state sharing.",
+        "Implemented component-driven architecture with React Router, lifecycle methods, state management, and event handling."
       ]
     },
     {
@@ -82,9 +88,9 @@ export default function Portfolio() {
   ];
 
   const skills = [
-    'Java', 'JavaScript', 'TypeScript', 'SQL', 'HTML5', 'CSS3', 
-    'Spring Boot', 'Angular 17', 'React JS', 'Node JS', 'Express JS', 
-    'Docker', 'Kubernetes', 'AWS', 'Jenkins', 'Kafka', 'Terraform', 'Git'
+     'JavaScript', 'TypeScript', 'Tailwind CSS' , 'HTML5', 'CSS3', 
+    'Angular JS', 'React JS', 'Redux', 'Node JS', 'Express JS', 'Material UI', 'SQL', 'GraphQL',
+    'AWS', 'SOAP', 'REST API', 'Git', 'Jest', 'Cypress'
   ];
 
   return (
