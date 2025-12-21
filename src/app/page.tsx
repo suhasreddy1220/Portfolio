@@ -1,12 +1,12 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer 
 } from "recharts";
 import { 
    Mail, Linkedin, 
-  Zap, Code2, ChevronDown, ChevronUp
+  Zap, Code2, ChevronDown, ChevronUp, Bug, Terminal
 } from "lucide-react";
 
 const fadeIn = {
@@ -27,6 +27,17 @@ const chartData = [
 
 export default function Portfolio() {
   const [expandedClient, setExpandedClient] = useState<number | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isDebug, setIsDebug] = useState(false);
+
+  // Spotlight Effect Logic
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const clients = [
     {
@@ -88,15 +99,25 @@ export default function Portfolio() {
   ];
 
   const skills = [
-     'JavaScript', 'TypeScript', 'Tailwind CSS' , 'HTML5', 'CSS3', 
-    'Angular JS', 'React JS', 'Redux', 'Node JS', 'Express JS', 'Material UI', 'SQL', 'GraphQL',
-    'AWS', 'SOAP', 'REST API', 'Git', 'Jest', 'Cypress'
+     { name: 'JavaScript', level: 'Expert' }, { name: 'TypeScript', level: 'Expert' }, { name: 'Tailwind CSS', level: 'Expert' }, 
+     { name: 'HTML5', level: 'Expert' }, { name: 'CSS3', level: 'Expert' }, { name: 'React JS', level: 'Expert' }, 
+     { name: 'Redux', level: 'Advanced' }, { name: 'Node JS', level: 'Advanced' }, { name: 'Express JS', level: 'Advanced' }, 
+     { name: 'SQL', level: 'Advanced' }, { name: 'GraphQL', level: 'Intermediate' }, { name: 'AWS', level: 'Advanced' },
+     { name: 'Jest', level: 'Expert' }, { name: 'Cypress', level: 'Advanced' }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0f14] text-zinc-100 selection:bg-blue-500/40 overflow-x-hidden font-sans">
+    <div className={`min-h-screen bg-[#0a0f14] text-zinc-100 selection:bg-blue-500/40 overflow-x-hidden font-sans transition-all duration-500 ${isDebug ? "debug-mode" : ""}`}>
       
-      {/* PEACEFUL DYNAMIC BACKGROUND */}
+      {/* SPOTLIGHT OVERLAY */}
+      <div 
+        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
+        style={{
+          background: `radial-gradient(600px at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.08), transparent 80%)`
+        }}
+      />
+
+      {/* DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#16202a_0%,#0a0f14_100%)]" />
         <motion.div 
@@ -106,16 +127,28 @@ export default function Portfolio() {
         />
       </div>
 
-      {/* NAVBAR WITH NAME AT TOP */}
+      {/* NAVBAR */}
       <nav className="fixed top-0 w-full z-50 border-b border-white/5 bg-[#0a0f14]/80 backdrop-blur-2xl px-10 py-5 flex justify-between items-center">
         <div className="flex flex-col">
           <span className="font-black tracking-tighter text-xl uppercase leading-none">Rushik Reddy</span>
           <span className="text-[10px] text-blue-500 font-bold tracking-[0.2em] uppercase">Gangam</span>
         </div>
-        <div className="flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-          <a href="#work" className="hover:text-blue-400 transition-colors">Experience</a>
-          <a href="#skills" className="hover:text-blue-400 transition-colors">Skills</a>
-          <a href="mailto:rushikreddy22@gmail.com" className="text-white border-b border-blue-500">Contact</a>
+        
+        <div className="flex items-center gap-8">
+          {/* DEBUG TOGGLE */}
+          <button 
+            onClick={() => setIsDebug(!isDebug)}
+            className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all ${isDebug ? "bg-blue-500 border-blue-400 text-white" : "border-white/10 text-zinc-500 hover:text-white"}`}
+          >
+            <Bug size={14} />
+            <span className="text-[10px] font-black uppercase tracking-widest">{isDebug ? "Debug: ON" : "Debug Mode"}</span>
+          </button>
+          
+          <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
+            <a href="#work" className="hover:text-blue-400 transition-colors">Experience</a>
+            <a href="#skills" className="hover:text-blue-400 transition-colors">Skills</a>
+            <a href="mailto:rushikreddy22@gmail.com" className="text-white border-b border-blue-500">Contact</a>
+          </div>
         </div>
       </nav>
 
@@ -123,51 +156,68 @@ export default function Portfolio() {
         
         {/* HERO SECTION */}
         <motion.section {...fadeIn} className="mb-24 relative">
-          <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
-            Front End <br /> 
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
-          </h1>
+          <div className="relative inline-block">
+            <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
+              Front End <br /> 
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
+            </h1>
+            {isDebug && (
+              <div className="absolute -top-4 -right-4 bg-blue-500 text-[10px] px-2 py-1 font-mono uppercase animate-pulse">
+                &lt;HeroSection /&gt;
+              </div>
+            )}
+          </div>
           
-          {/* PROFESSIONAL SUMMARY */}
-          <div className="max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 backdrop-blur-sm">
-            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-4">Professional Summary</h2>
+          <div className={`max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border transition-all duration-500 ${isDebug ? "border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)]" : "border-white/5"} backdrop-blur-sm`}>
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-blue-500 mb-4 flex items-center gap-2">
+              <Terminal size={14} /> Professional Summary
+            </h2>
             <p className="text-lg text-zinc-400 leading-relaxed font-light">
-              Dynamic, results-driven Front-End Engineer with extensive experience in building responsive, scalable, and component-driven web applications. Proficient across modern frontend HTML, CSS, TypeScript & JavaScript with frameworks (React JS, Next.js, Angular JS) Strong background RESTful API design, cloud platforms, and full SDLC best practices. Known for delivering high-quality code, improving UI/UX performance, and collaborating effectively in fast-paced engineering teams.
+              Dynamic, results-driven Front-End Engineer with extensive experience in building responsive, scalable, and component-driven web applications. Proficient across modern frontend HTML, CSS, TypeScript & JavaScript with frameworks (React JS, Next.js, Angular JS).
             </p>
           </div>
         </motion.section>
 
-        {/* INDIVIDUAL SKILL BOXES WITH HIGHLIGHT HOVER */}
+        {/* BENTO SKILLS GRID */}
         <section id="skills" className="mb-40">
-          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Tech Stack</h2>
-           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {skills.map((skill) => (
+          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Engineered Stack</h2>
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {skills.map((skill, i) => (
                 <motion.div 
-                  key={skill}
-                  whileHover={{ 
-                    y: -5,
-                    backgroundColor: "rgba(59, 130, 246, 0.15)",
-                    borderColor: "rgba(59, 130, 246, 0.6)",
-                    boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)"
-                  }}
-                  className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
+                  key={skill.name}
+                  layout
+                  whileHover={{ scale: 1.02 }}
+                  className={`relative p-8 rounded-3xl border border-white/10 bg-zinc-900/40 overflow-hidden group transition-all ${isDebug ? "border-blue-500/50" : ""}`}
                 >
-                  <span className="text-[10px] font-black uppercase tracking-widest text-zinc-300 group-hover:text-white">
-                    {skill}
-                  </span>
+                  <div className="relative z-10">
+                    <span className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-2 block opacity-0 group-hover:opacity-100 transition-opacity">
+                      {skill.level}
+                    </span>
+                    <span className="text-lg font-bold text-zinc-300 group-hover:text-white">
+                      {skill.name}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                    <Code2 size={60} />
+                  </div>
+                  {isDebug && (
+                    <div className="absolute top-2 right-2 text-[8px] font-mono text-blue-400">
+                      idx_{i}
+                    </div>
+                  )}
                 </motion.div>
               ))}
            </div>
         </section>
 
-        {/* REVERTED ANALYTICS DESCRIPTION */}
+        {/* ANALYTICS SECTION */}
         <section className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-          <div className="h-[400px] bg-white/[0.02] border border-white/5 rounded-[3rem] p-6 backdrop-blur-3xl">
+          <div className={`h-[400px] bg-white/[0.02] border rounded-[3rem] p-6 backdrop-blur-3xl transition-all duration-700 ${isDebug ? "border-blue-500 scale-[1.02]" : "border-white/5"}`}>
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
-                <PolarGrid stroke="#333" />
+                <PolarGrid stroke={isDebug ? "#3b82f6" : "#333"} />
                 <PolarAngleAxis dataKey="subject" tick={{ fill: '#666', fontSize: 10, fontWeight: 'bold' }} />
-                <Radar name="Rushik" dataKey="A" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.3} />
+                <Radar name="Rushik" dataKey="A" stroke="#3b82f6" fill="#3b82f6" fillOpacity={isDebug ? 0.6 : 0.3} />
               </RadarChart>
             </ResponsiveContainer>
           </div>
@@ -186,21 +236,21 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* EXPANDABLE CLIENTS SECTION */}
+        {/* EXPERIENCE */}
         <section id="work" className="mb-40">
           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-blue-500 mb-16">Client Engagements</h2>
           <div className="space-y-6">
             {clients.map((client, idx) => (
               <div 
                 key={idx} 
-                className={`rounded-[2.5rem] border border-white/5 bg-gradient-to-br ${client.color} to-transparent overflow-hidden transition-all duration-500`}
+                className={`group rounded-[2.5rem] border border-white/5 bg-gradient-to-br ${client.color} to-transparent overflow-hidden transition-all duration-500 hover:border-white/20`}
               >
                 <button 
                   onClick={() => setExpandedClient(expandedClient === idx ? null : idx)}
                   className="w-full p-8 flex flex-col md:flex-row justify-between items-center text-left"
                 >
                   <div className="flex items-center gap-6">
-                    <img src={client.logo} alt={client.company} className="h-8 w-auto grayscale brightness-200" />
+                    <img src={client.logo} alt={client.company} className="h-8 w-auto grayscale brightness-200 group-hover:grayscale-0 transition-all" />
                     <div>
                       <h4 className="text-2xl font-bold text-white">{client.company}</h4>
                       <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{client.role}</p>
@@ -222,10 +272,16 @@ export default function Portfolio() {
                     >
                       <div className="grid grid-cols-1 gap-4 border-t border-white/5 pt-8">
                         {client.details.map((detail, i) => (
-                          <div key={i} className="flex gap-4 p-4 rounded-xl bg-black/20 border border-white/5">
+                          <motion.div 
+                            initial={{ x: -20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            transition={{ delay: i * 0.1 }}
+                            key={i} 
+                            className="flex gap-4 p-4 rounded-xl bg-black/20 border border-white/5 hover:border-blue-500/30 transition-colors"
+                          >
                             <Code2 size={18} className="text-blue-500 shrink-0" />
                             <p className="text-zinc-400 text-sm leading-relaxed">{detail}</p>
-                          </div>
+                          </motion.div>
                         ))}
                       </div>
                     </motion.div>
@@ -236,10 +292,12 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* EDUCATION SECTION (BRANDED CARDS) */}
+        {/* EDUCATION */}
         <section id="edu" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
-               <img src="/logos/unt.png" className="h-16 w-16 object-contain" alt="UNT" />
+               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2">
+                  <img src="/logos/unt.png" className="w-full h-full object-contain" alt="UNT" />
+               </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Master of Science</p>
                   <h4 className="text-xl font-bold">University of North Texas</h4>
@@ -247,7 +305,9 @@ export default function Portfolio() {
                </div>
             </div>
             <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
-               <img src="/logos/niit.png" className="h-16 w-16 object-contain" alt="NIIT" />
+               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2">
+                  <img src="/logos/niit.png" className="w-full h-full object-contain" alt="NIIT" />
+               </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Bachelor of Technology</p>
                   <h4 className="text-xl font-bold">NIIT University</h4>
@@ -256,29 +316,37 @@ export default function Portfolio() {
             </div>
         </section>
 
-        {/* CONTACT SECTION */}
+        {/* CONTACT */}
         <section className="mb-40">
           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Get in Touch</h2>
-          <div className="flex flex-col items-center gap-6">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <motion.a 
-              href="mailto: rushikreddy22@gmail.com" 
-              whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.15)", borderColor: "rgba(59, 130, 246, 0.6)", boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)" }}
-              className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
+              href="mailto:rushikreddy22@gmail.com" 
+              whileHover={{ y: -5, scale: 1.05 }}
+              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 hover:border-blue-500/50 transition-all group"
             >
-              <Mail size={24} className="text-blue-500" />
-              <span className="text-lg font-bold text-white mt-2">Email Me</span>
+              <Mail className="text-blue-500 group-hover:scale-110 transition-transform" />
+              <span className="text-lg font-bold">Email Me</span>
             </motion.a>
-                        <motion.a 
-                          href="https://www.linkedin.com/in/rushik-reddy/" 
-                          whileHover={{ y: -5, backgroundColor: "rgba(59, 130, 246, 0.15)", borderColor: "rgba(59, 130, 246, 0.6)", boxShadow: "0 0 20px rgba(59, 130, 246, 0.2)" }}
-                          className="p-6 rounded-2xl border border-white/10 bg-zinc-900/40 text-center cursor-pointer transition-all duration-200"
-                        >
-                          <Linkedin size={24} className="text-blue-500" />
-                          <span className="text-lg font-bold text-white mt-2">Connect on LinkedIn</span>
-                        </motion.a>
-                      </div>
-                    </section>
-                  </main>
-                </div>
-              );
-            }
+            <motion.a 
+              href="https://www.linkedin.com/in/rushik-reddy/" 
+              target="_blank"
+              whileHover={{ y: -5, scale: 1.05 }}
+              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 hover:border-blue-500/50 transition-all group"
+            >
+              <Linkedin className="text-blue-500 group-hover:scale-110 transition-transform" />
+              <span className="text-lg font-bold">LinkedIn</span>
+            </motion.a>
+          </div>
+        </section>
+      </main>
+
+      {/* DEBUG GLOBAL CSS OVERRIDE */}
+      <style jsx global>{`
+        .debug-mode * {
+          outline: 1px solid rgba(59, 130, 246, 0.2);
+        }
+      `}</style>
+    </div>
+  );
+}
