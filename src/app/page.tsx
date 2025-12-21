@@ -6,7 +6,7 @@ import {
 } from "recharts";
 import { 
    Mail, Linkedin, 
-  Zap, Code2, ChevronDown, ChevronUp, Bug, Terminal
+  Zap, Code2, ChevronDown, ChevronUp, Bug, Terminal, GraduationCap
 } from "lucide-react";
 
 const fadeIn = {
@@ -20,9 +20,9 @@ const chartData = [
   { subject: 'UI Architecture', A: 100 },
   { subject: 'Performance', A: 95 },
   { subject: 'Testing', A: 85 },
-  { subject: 'State Mgmt', A: 98 },
+  { subject: 'State Management', A: 98 },
   { subject: 'Accessibility', A: 90 },
-  { subject: 'Cloud/CI-CD', A: 80 },
+  { subject: 'Agentic AI', A: 85 },
 ];
 
 export default function Portfolio() {
@@ -41,8 +41,8 @@ export default function Portfolio() {
 
   const clients = [
     {
-      company: "Optum UHC",
-      logo: "/logos/optum.jpeg",
+      company: "Optum - United HealthCare",
+      logo: "/logos/optum.jpg",
       role: "Senior Front end Engineer",
       duration: "Nov 2024 — Present",
       color: "from-orange-500/20",
@@ -135,7 +135,6 @@ export default function Portfolio() {
         </div>
         
         <div className="flex items-center gap-8">
-          {/* DEBUG TOGGLE */}
           <button 
             onClick={() => setIsDebug(!isDebug)}
             className={`flex items-center gap-2 px-3 py-1 rounded-full border transition-all ${isDebug ? "bg-blue-500 border-blue-400 text-white" : "border-white/10 text-zinc-500 hover:text-white"}`}
@@ -161,11 +160,6 @@ export default function Portfolio() {
               Front End <br /> 
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
             </h1>
-            {isDebug && (
-              <div className="absolute -top-4 -right-4 bg-blue-500 text-[10px] px-2 py-1 font-mono uppercase animate-pulse">
-                &lt;HeroSection /&gt;
-              </div>
-            )}
           </div>
           
           <div className={`max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border transition-all duration-500 ${isDebug ? "border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)]" : "border-white/5"} backdrop-blur-sm`}>
@@ -186,7 +180,7 @@ export default function Portfolio() {
                 <motion.div 
                   key={skill.name}
                   layout
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
                   className={`relative p-8 rounded-3xl border border-white/10 bg-zinc-900/40 overflow-hidden group transition-all ${isDebug ? "border-blue-500/50" : ""}`}
                 >
                   <div className="relative z-10">
@@ -200,11 +194,6 @@ export default function Portfolio() {
                   <div className="absolute bottom-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
                     <Code2 size={60} />
                   </div>
-                  {isDebug && (
-                    <div className="absolute top-2 right-2 text-[8px] font-mono text-blue-400">
-                      idx_{i}
-                    </div>
-                  )}
                 </motion.div>
               ))}
            </div>
@@ -226,13 +215,6 @@ export default function Portfolio() {
             <p className="text-zinc-500 text-lg">
               Beyond writing code, I analyze performance bottlenecks and architectural scalability. My expertise is balanced across high-speed rendering, state logic, and design systems.
             </p>
-            <div className="grid grid-cols-2 gap-4">
-              {['100% UI Focus', 'Cloud Native', 'Performance Tuning', 'Scalable Arch'].map((item) => (
-                <div key={item} className="flex items-center gap-2 text-xs font-bold text-zinc-300">
-                  <Zap size={14} className="text-blue-500" /> {item}
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -292,28 +274,35 @@ export default function Portfolio() {
           </div>
         </section>
 
-        {/* EDUCATION */}
+        {/* EDUCATION SECTION WITH BLUE HIGHLIGHT ON HOVER */}
         <section id="edu" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
-               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2">
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+              className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group transition-all duration-300 shadow-xl"
+            >
+               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2 group-hover:bg-blue-500/20 transition-colors">
                   <img src="/logos/unt.png" className="w-full h-full object-contain" alt="UNT" />
                </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Master of Science</p>
-                  <h4 className="text-xl font-bold">University of North Texas</h4>
+                  <h4 className="text-xl font-bold group-hover:text-white transition-colors">University of North Texas</h4>
                   <p className="text-zinc-500 text-xs italic">Advanced Data Analytics • Denton, TX</p>
                </div>
-            </div>
-            <div className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group hover:bg-white/[0.04] transition-all">
-               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2">
+            </motion.div>
+
+            <motion.div 
+              whileHover={{ y: -5, scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+              className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group transition-all duration-300 shadow-xl"
+            >
+               <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2 group-hover:bg-blue-500/20 transition-colors">
                   <img src="/logos/niit.png" className="w-full h-full object-contain" alt="NIIT" />
                </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Bachelor of Technology</p>
-                  <h4 className="text-xl font-bold">NIIT University</h4>
-                  <p className="text-zinc-500 text-xs italic">Computer Science & Engineering • Hyderabad, India</p>
+                  <h4 className="text-xl font-bold group-hover:text-white transition-colors">NIIT University</h4>
+                  <p className="text-zinc-500 text-xs italic">Computer Science & Engineering • Rajasthan, India</p>
                </div>
-            </div>
+            </motion.div>
         </section>
 
         {/* CONTACT */}
@@ -322,8 +311,8 @@ export default function Portfolio() {
           <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <motion.a 
               href="mailto:rushikreddy22@gmail.com" 
-              whileHover={{ y: -5, scale: 1.05 }}
-              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 hover:border-blue-500/50 transition-all group"
+              whileHover={{ y: -5, scale: 1.05, borderColor: "rgba(59, 130, 246, 0.6)", backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 transition-all group"
             >
               <Mail className="text-blue-500 group-hover:scale-110 transition-transform" />
               <span className="text-lg font-bold">Email Me</span>
@@ -331,8 +320,8 @@ export default function Portfolio() {
             <motion.a 
               href="https://www.linkedin.com/in/rushik-reddy/" 
               target="_blank"
-              whileHover={{ y: -5, scale: 1.05 }}
-              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 hover:border-blue-500/50 transition-all group"
+              whileHover={{ y: -5, scale: 1.05, borderColor: "rgba(59, 130, 246, 0.6)", backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+              className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 transition-all group"
             >
               <Linkedin className="text-blue-500 group-hover:scale-110 transition-transform" />
               <span className="text-lg font-bold">LinkedIn</span>
@@ -341,7 +330,6 @@ export default function Portfolio() {
         </section>
       </main>
 
-      {/* DEBUG GLOBAL CSS OVERRIDE */}
       <style jsx global>{`
         .debug-mode * {
           outline: 1px solid rgba(59, 130, 246, 0.2);
