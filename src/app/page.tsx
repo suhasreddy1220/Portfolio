@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import Image from 'next/image';
 import Lottie from 'lottie-react';
+import Character from '../components/Character';
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
@@ -146,7 +147,7 @@ export default function Portfolio() {
       />
       {/* CURSOR FOLLOWER */}
       <motion.div
-        className="pointer-events-none fixed z-40 w-36 h-36 rounded-full blur-3xl bg-gradient-to-r from-blue-400/40 to-indigo-400/20"
+        className="pointer-events-none hidden md:block fixed z-40 w-36 h-36 rounded-full blur-3xl bg-gradient-to-r from-blue-400/40 to-indigo-400/20"
         animate={{ x: mousePos.x - 72, y: mousePos.y - 72 }}
         transition={{ type: "spring", stiffness: 200, damping: 30 }}
       />
@@ -186,9 +187,9 @@ export default function Portfolio() {
           </button>
           
           <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-            <motion.a href="#work" whileHover={{ y: -3, scale: 1.03 }} className="transition-colors">Experience</motion.a>
-            <motion.a href="#skills" whileHover={{ y: -3, scale: 1.03 }} className="transition-colors">Skills</motion.a>
-            <motion.a href="mailto:rushikreddy22@gmail.com" whileHover={{ y: -3, scale: 1.03 }} className="text-white border-b border-blue-500">Contact</motion.a>
+            <motion.a href="#work" whileHover={{ y: -3, scale: 1.03 }} whileTap={{ y: -1, scale: 1.02 }} className="transition-colors">Experience</motion.a>
+            <motion.a href="#skills" whileHover={{ y: -3, scale: 1.03 }} whileTap={{ y: -1, scale: 1.02 }} className="transition-colors">Skills</motion.a>
+            <motion.a href="mailto:rushikreddy22@gmail.com" whileHover={{ y: -3, scale: 1.03 }} whileTap={{ y: -1, scale: 1.02 }} className="text-white border-b border-blue-500">Contact</motion.a>
           </div>
         </div>
       </nav>
@@ -198,9 +199,9 @@ export default function Portfolio() {
       <main className="max-w-6xl mx-auto px-6 pt-44 pb-20">
         
         {/* HERO SECTION */}
-        <motion.section {...fadeIn} className="mb-24 relative">
+        <motion.section id="hero" {...fadeIn} className="mb-24 relative">
           <div className="relative inline-block overflow-hidden">
-            <motion.h1 variants={headlineContainer} initial="hidden" animate="show" className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
+            <motion.h1 variants={headlineContainer} initial="hidden" animate="show" className="text-6xl sm:text-7xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
               {headline.split(' ').map((w, idx) => (
                 <motion.span key={idx} variants={word} className="inline-block mr-3">
                   {w === 'Engineer.' ? <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">{w}</span> : w}
@@ -218,17 +219,27 @@ export default function Portfolio() {
               Dynamic, results-driven Front-End Engineer with extensive experience in building responsive, scalable, and component-driven web applications. Proficient across modern frontend HTML, CSS, TypeScript & JavaScript with frameworks (React JS, Next.js, Angular JS).
             </p>
           </div>
+
+            {/* HERO LOTTIE */}
+            <div className="absolute md:right-6 right-1/2 top-24 md:top-0 -translate-x-1/2 md:translate-x-0 w-40 md:w-80 pointer-events-none opacity-95">
+              {heroAnim ? (
+                <Lottie animationData={heroAnim} loop={true} autoplay />
+              ) : (
+                <div className="w-full h-full bg-gradient-to-r from-blue-400/10 to-indigo-400/6 rounded-xl" />
+              )}
+            </div>
+            <Character sectionId="hero" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="left" size={110} />
         </motion.section>
 
         {/* BENTO SKILLS GRID */}
         <section id="skills" className="mb-40">
-          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Engineered Stack</h2>
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Engineered Stack</h2>          <Character sectionId="skills" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="right" size={100} />           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {skills.map((skill, i) => (
                 <motion.div 
                   key={skill.name}
                   layout
                   whileHover={{ scale: 1.03, rotate: 1.5, boxShadow: "0 10px 30px rgba(59,130,246,0.08)", borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+                  whileTap={{ scale: 0.98, rotate: 0 }}
                   className={`relative p-8 rounded-3xl border border-white/10 bg-zinc-900/40 overflow-hidden group transition-all ${isDebug ? "border-blue-500/50" : ""}`} 
                 >
                   <div className="relative z-10">
@@ -248,7 +259,8 @@ export default function Portfolio() {
         </section>
 
         {/* ANALYTICS SECTION */}
-        <section className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <section id="analytics" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative">
+          <Character sectionId="analytics" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="right" size={100} />
           <div className={`h-[400px] bg-white/[0.02] border rounded-[3rem] p-6 backdrop-blur-3xl transition-all duration-700 ${isDebug ? "border-blue-500 scale-[1.02]" : "border-white/5"}`}>
             <ResponsiveContainer width="100%" height="100%">
               <RadarChart cx="50%" cy="50%" outerRadius="65%" data={chartData}>
@@ -267,7 +279,8 @@ export default function Portfolio() {
         </section>
 
         {/* EXPERIENCE */}
-        <section id="work" className="mb-40">
+        <section id="work" className="mb-40 relative">
+          <Character sectionId="work" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="left" size={120} />
           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-blue-500 mb-16">Client Engagements</h2>
           <div className="space-y-6">
             {clients.map((client, idx) => (
@@ -325,7 +338,8 @@ export default function Portfolio() {
         </section>
 
         {/* EDUCATION SECTION WITH BLUE HIGHLIGHT ON HOVER */}
-        <section id="edu" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <section id="edu" className="mb-40 grid grid-cols-1 md:grid-cols-2 gap-8 relative">
+          <Character sectionId="edu" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="right" size={90} />
             <motion.div 
               whileHover={{ y: -5, scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
               className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group transition-all duration-300 shadow-xl"
@@ -356,12 +370,14 @@ export default function Portfolio() {
         </section>
 
         {/* CONTACT */}
-        <section className="mb-40">
+        <section id="contact" className="mb-40 relative">
+          <Character sectionId="contact" lottieUrl="https://assets2.lottiefiles.com/packages/lf20_ydo1amjm.json" position="left" size={100} />
           <h2 className="text-xs font-black uppercase tracking-[0.5em] text-zinc-600 mb-12 text-center">Get in Touch</h2>
           <div className="flex flex-col md:flex-row justify-center items-center gap-6">
             <motion.a 
               href="mailto:rushikreddy22@gmail.com" 
               whileHover={{ y: -5, scale: 1.05, borderColor: "rgba(59, 130, 246, 0.6)", backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+              whileTap={{ scale: 0.98 }}
               className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 transition-all group"
             >
               <Mail className="text-blue-500 group-hover:scale-110 transition-transform" />
@@ -371,6 +387,7 @@ export default function Portfolio() {
               href="https://www.linkedin.com/in/rushik-reddy/" 
               target="_blank"
               whileHover={{ y: -5, scale: 1.05, borderColor: "rgba(59, 130, 246, 0.6)", backgroundColor: "rgba(59, 130, 246, 0.1)" }}
+              whileTap={{ scale: 0.98 }}
               className="flex items-center gap-4 px-8 py-6 rounded-3xl border border-white/10 bg-zinc-900/40 transition-all group"
             >
               <Linkedin className="text-blue-500 group-hover:scale-110 transition-transform" />
