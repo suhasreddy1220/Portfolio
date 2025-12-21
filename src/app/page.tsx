@@ -36,12 +36,12 @@ export default function Portfolio() {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => window.removeMouseMoveListener("mousemove", handleMouseMove);
   }, []);
 
   const clients = [
     {
-      company: "Optum - United HealthCare",
+      company: "Optum UHC",
       logo: "/logos/optum.jpg",
       role: "Senior Front end Engineer",
       duration: "Nov 2024 — Present",
