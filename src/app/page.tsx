@@ -115,7 +115,7 @@ export default function Portfolio() {
       logo: "/logos/arrka.jpg",
       role: "Software Developer",
       duration: "Jan 2020 — Nov 2021",
-      color: "from-cyan-500/20",
+      color: "from-emerald-500/20",
       details: [
         "Reactive UI Engineering: Designed and developed highly responsive user interfaces using Angular and JavaScript, implementing real-time data binding to ensure security dashboards updated dynamically without manual refreshes.",  
         "Frontend Architecture: Engineered a library of reusable UI components—including complex data tables, modals, and secure form inputs—using HTML5 and CSS3 to maintain 100% design consistency across the platform.",
