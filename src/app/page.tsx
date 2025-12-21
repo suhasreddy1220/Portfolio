@@ -1,6 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { 
   Radar, RadarChart, PolarGrid, PolarAngleAxis, ResponsiveContainer 
 } from "recharts";
@@ -8,12 +8,26 @@ import {
    Mail, Linkedin, 
   Zap, Code2, ChevronDown, ChevronUp, Bug, Terminal, GraduationCap
 } from "lucide-react";
+import Image from 'next/image';
+import Lottie from 'lottie-react';
 
 const fadeIn = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true },
-  transition: { duration: 0.6, ease: "easeOut" }
+  transition: { duration: 0.9, ease: "easeOut" }
+} as const;
+
+const headline = "Front End Engineer.";
+const headlineContainer = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08 }
+  }
+} as const;
+const word = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0 , transition: { duration: 0.45, ease: "easeOut" } }
 } as const;
 
 const chartData = [
@@ -37,6 +51,20 @@ export default function Portfolio() {
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  // scroll progress for top bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  // hero lottie animation data
+  const [heroAnim, setHeroAnim] = useState<Record<string, unknown> | null>(null);
+  useEffect(() => {
+    // sample Lottie from LottieFiles — replace with your own JSON if you prefer
+    fetch("https://assets7.lottiefiles.com/packages/lf20_jcikwtux.json")
+      .then((r) => r.json())
+      .then((data) => setHeroAnim(data))
+      .catch(() => {});
   }, []);
 
   const clients = [
@@ -116,15 +144,29 @@ export default function Portfolio() {
           background: `radial-gradient(600px at ${mousePos.x}px ${mousePos.y}px, rgba(59, 130, 246, 0.08), transparent 80%)`
         }}
       />
+      {/* CURSOR FOLLOWER */}
+      <motion.div
+        className="pointer-events-none fixed z-40 w-36 h-36 rounded-full blur-3xl bg-gradient-to-r from-blue-400/40 to-indigo-400/20"
+        animate={{ x: mousePos.x - 72, y: mousePos.y - 72 }}
+        transition={{ type: "spring", stiffness: 200, damping: 30 }}
+      />
 
       {/* DYNAMIC BACKGROUND */}
       <div className="fixed inset-0 -z-10">
         <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,#16202a_0%,#0a0f14_100%)]" />
-        <motion.div 
-          animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.5, 0.3] }}
-          transition={{ duration: 10, repeat: Infinity }}
-          className="absolute top-[-20%] right-[-10%] w-[70%] h-[70%] bg-blue-900/10 blur-[120px] rounded-full" 
-        />
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            animate={{
+              x: [0, i % 2 === 0 ? -20 : 20, 0],
+              y: [0, i % 2 === 0 ? -10 : 10, 0],
+              opacity: [0.25, 0.6, 0.25],
+              scale: [1, 1.04, 1]
+            }}
+            transition={{ duration: 8 + i * 2, repeat: Infinity, ease: "easeInOut" }}
+            className={`absolute ${i===0? 'top-[-20%] right-[-10%] w-[70%] h-[70%]' : i===1 ? 'bottom-[-10%] left-[-20%] w-[40%] h-[40%]' : i===2 ? 'top-[-5%] left-[-10%] w-[30%] h-[30%]' : 'bottom-[10%] right-[-5%] w-[20%] h-[20%]'} bg-blue-900/10 blur-[120px] rounded-full`} 
+          />
+        ))}
       </div>
 
       {/* NAVBAR */}
@@ -144,22 +186,28 @@ export default function Portfolio() {
           </button>
           
           <div className="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-[0.3em] text-zinc-500">
-            <a href="#work" className="hover:text-blue-400 transition-colors">Experience</a>
-            <a href="#skills" className="hover:text-blue-400 transition-colors">Skills</a>
-            <a href="mailto:rushikreddy22@gmail.com" className="text-white border-b border-blue-500">Contact</a>
+            <motion.a href="#work" whileHover={{ y: -3, scale: 1.03 }} className="transition-colors">Experience</motion.a>
+            <motion.a href="#skills" whileHover={{ y: -3, scale: 1.03 }} className="transition-colors">Skills</motion.a>
+            <motion.a href="mailto:rushikreddy22@gmail.com" whileHover={{ y: -3, scale: 1.03 }} className="text-white border-b border-blue-500">Contact</motion.a>
           </div>
         </div>
       </nav>
-
+      {/* SCROLL PROGRESS */}
+      <motion.div style={{ scaleX }} className="fixed top-0 left-0 right-0 h-1 z-60 origin-left bg-gradient-to-r from-blue-400 to-indigo-400" />
+      
       <main className="max-w-6xl mx-auto px-6 pt-44 pb-20">
         
         {/* HERO SECTION */}
         <motion.section {...fadeIn} className="mb-24 relative">
-          <div className="relative inline-block">
-            <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
-              Front End <br /> 
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">Engineer.</span>
-            </h1>
+          <div className="relative inline-block overflow-hidden">
+            <motion.h1 variants={headlineContainer} initial="hidden" animate="show" className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85]">
+              {headline.split(' ').map((w, idx) => (
+                <motion.span key={idx} variants={word} className="inline-block mr-3">
+                  {w === 'Engineer.' ? <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-indigo-200">{w}</span> : w}
+                </motion.span>
+              ))}
+              <motion.span className="inline-block ml-4 w-12 h-3 rounded-full bg-gradient-to-r from-white/80 to-white/20" initial={{opacity:0}} animate={{opacity:[0,1,0]}} transition={{ repeat: Infinity, duration: 2 }} />
+            </motion.h1>
           </div>
           
           <div className={`max-w-3xl p-8 rounded-[2rem] bg-white/[0.02] border transition-all duration-500 ${isDebug ? "border-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.2)]" : "border-white/5"} backdrop-blur-sm`}>
@@ -180,8 +228,8 @@ export default function Portfolio() {
                 <motion.div 
                   key={skill.name}
                   layout
-                  whileHover={{ scale: 1.02, borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
-                  className={`relative p-8 rounded-3xl border border-white/10 bg-zinc-900/40 overflow-hidden group transition-all ${isDebug ? "border-blue-500/50" : ""}`}
+                  whileHover={{ scale: 1.03, rotate: 1.5, boxShadow: "0 10px 30px rgba(59,130,246,0.08)", borderColor: "rgba(59, 130, 246, 0.5)", backgroundColor: "rgba(59, 130, 246, 0.05)" }}
+                  className={`relative p-8 rounded-3xl border border-white/10 bg-zinc-900/40 overflow-hidden group transition-all ${isDebug ? "border-blue-500/50" : ""}`} 
                 >
                   <div className="relative z-10">
                     <span className="text-[10px] font-black uppercase tracking-widest text-blue-500 mb-2 block opacity-0 group-hover:opacity-100 transition-opacity">
@@ -232,7 +280,7 @@ export default function Portfolio() {
                   className="w-full p-8 flex flex-col md:flex-row justify-between items-center text-left"
                 >
                   <div className="flex items-center gap-6">
-                    <img src={client.logo} alt={client.company} className="h-8 w-auto grayscale brightness-200 group-hover:grayscale-0 transition-all" />
+                    <Image src={client.logo} alt={client.company} className="h-8 w-auto grayscale brightness-200 group-hover:grayscale-0 transition-all" />
                     <div>
                       <h4 className="text-2xl font-bold text-white">{client.company}</h4>
                       <p className="text-zinc-500 text-xs font-bold uppercase tracking-widest">{client.role}</p>
@@ -240,7 +288,9 @@ export default function Portfolio() {
                   </div>
                   <div className="flex items-center gap-4 mt-4 md:mt-0">
                     <span className="text-zinc-600 font-mono text-xs">{client.duration}</span>
-                    {expandedClient === idx ? <ChevronUp size={20}/> : <ChevronDown size={20}/>}
+                    <motion.div animate={{ rotate: expandedClient === idx ? 180 : 0 }} transition={{ duration: 0.25 }}>
+                      {expandedClient === idx ? <ChevronUp size={20}/> : <ChevronDown size={20}/>} 
+                    </motion.div>
                   </div>
                 </button>
                 
@@ -281,7 +331,7 @@ export default function Portfolio() {
               className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group transition-all duration-300 shadow-xl"
             >
                <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2 group-hover:bg-blue-500/20 transition-colors">
-                  <img src="/logos/unt.png" className="w-full h-full object-contain" alt="UNT" />
+                  <Image src="/logos/unt.png" className="w-full h-full object-contain" alt="UNT" />
                </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Master of Science</p>
@@ -295,7 +345,7 @@ export default function Portfolio() {
               className="p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 flex items-center gap-8 group transition-all duration-300 shadow-xl"
             >
                <div className="h-16 w-16 bg-white/10 rounded-2xl flex items-center justify-center p-2 group-hover:bg-blue-500/20 transition-colors">
-                  <img src="/logos/niit.png" className="w-full h-full object-contain" alt="NIIT" />
+                  <Image src="/logos/niit.png" className="w-full h-full object-contain" alt="NIIT" />
                </div>
                <div>
                   <p className="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Bachelor of Technology</p>
